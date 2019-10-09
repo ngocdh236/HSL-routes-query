@@ -5,6 +5,7 @@ import { gql } from 'apollo-boost';
 
 import '../styles/RouteList.scss';
 
+import gogocarData from '../services/gogocarData';
 import getRouteModeIcon from '../utils/getRouteModeIcon';
 
 function RouteList(props) {
@@ -50,12 +51,16 @@ function RouteList(props) {
 
   const [getRoutes, { loading, error, data }] = useLazyQuery(query);
 
+  const [showGogocarData, setShowGogocarData] = useState(false);
+
   useEffect(() => {
     getRoutes();
   }, [query, getRoutes]);
 
   // TODO: Find a way to query using enum
-  const queryRoutes = () => {
+  const onButtonSearchClick = () => {
+    setShowGogocarData(false);
+    setNoRoute(true);
     var modes = '';
     transportModes.forEach(mode => {
       if (mode.selected) modes += `${mode.name}, `;
@@ -111,18 +116,44 @@ function RouteList(props) {
 
   const { selectedRoutes, pickRoute } = props;
 
+  const routeList = list => {
+    return list.map(route => {
+      return (
+        <div
+          key={route.gtfsId}
+          className={classnames('route', `route--${route.mode}`, {
+            'route--selected': selectedRoutes.includes(route)
+          })}
+          onClick={() => pickRoute(route)}
+        >
+          <i className={getRouteModeIcon(route)}></i> {route.shortName}
+          <p>{route.longName}</p>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className='RouteList'>
       <div className='filter'>
         <div className='transport-modes'>
           {transportModes.map(mode => (
-            <i
-              key={mode.name}
-              className={classnames(mode.icon, {
-                [`${mode.name}-selected`]: mode.selected
-              })}
-              onClick={() => chooseTranportMode(mode.name)}
-            ></i>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
+              <i
+                key={mode.name}
+                className={classnames(mode.icon, {
+                  [`${mode.name}-selected`]: mode.selected
+                })}
+                onClick={() => chooseTranportMode(mode.name)}
+              ></i>
+              <span>{mode.name}</span>
+            </div>
           ))}
         </div>
         <div className='name'>
@@ -131,32 +162,35 @@ function RouteList(props) {
             value={filterName}
             onChange={e => setFilterName(e.target.value)}
           ></input>
-          <button id='button-search' onClick={queryRoutes}>
-            Search
+          <button id='button-search' onClick={onButtonSearchClick}>
+            Search from HSL
           </button>
         </div>
+        <button
+          className={showGogocarData ? 'gogocar-selected' : null}
+          style={{ marginTop: '15px' }}
+          onClick={() => {
+            setNoRoute(false);
+            setShowGogocarData(true);
+          }}
+        >
+          Get Data from Gogocar
+        </button>
       </div>
 
       {error}
 
       {loading && <div className='loader'></div>}
 
-      {data && data.routes.length > 0 && !noRoute ? (
-        data.routes.map(route => {
-          return (
-            <div
-              key={route.gtfsId}
-              className={classnames('route', `route--${route.mode}`, {
-                'route--selected': selectedRoutes.includes(route)
-              })}
-              onClick={() => pickRoute(route)}
-            >
-              <i className={getRouteModeIcon(route)}></i> {route.shortName}
-              <p>{route.longName}</p>
-            </div>
-          );
-        })
-      ) : (
+      {showGogocarData && routeList(gogocarData.data.routes)}
+
+      {data &&
+        data.routes.length > 0 &&
+        !noRoute &&
+        !showGogocarData &&
+        routeList(data.routes)}
+
+      {noRoute && (
         <div style={{ textAlign: 'center', paddingTop: '20%' }}>
           No Route Found
         </div>
