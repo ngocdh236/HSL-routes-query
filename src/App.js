@@ -5,6 +5,7 @@ import './App.scss';
 
 import { client } from './services/ApolloClient';
 import Map from './components/Map';
+import RouteList from './components/RouteList';
 
 function App() {
   const [currentPosition, setCurrentPosition] = useState({
@@ -60,6 +61,10 @@ function App() {
           currentRoute={currentRoute}
           selectedRoutes={selectedRoutes}
         ></Map>
+        <RouteList
+          selectedRoutes={selectedRoutes}
+          pickRoute={pickRoute}
+        ></RouteList>
       </div>
     </ApolloProvider>
   );

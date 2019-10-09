@@ -1,0 +1,176 @@
+@import '../App.scss';
+
+.RouteList {
+  color: white;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 45%;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.25);
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    height: 25%;
+    padding: 20px;
+    background: white;
+    color: black;
+    overflow: hidden;
+    top: 0;
+
+    .transport-modes {
+      display: flex;
+      justify-content: space-between;
+
+      .fas {
+        color: gray;
+      }
+
+      .fa-bus {
+        &:hover {
+          color: $BUS;
+        }
+      }
+
+      .fa-ship {
+        &:hover {
+          color: $FERRY;
+        }
+      }
+
+      .fa-subway {
+        &:hover {
+          color: $SUBWAY;
+        }
+      }
+
+      .fa-train {
+        &:hover {
+          color: $RAIL;
+        }
+      }
+
+      .fa-tram {
+        &:hover {
+          color: $TRAM;
+        }
+      }
+
+      .BUS-selected {
+        color: $BUS;
+      }
+
+      .FERRY-selected {
+        color: $FERRY;
+      }
+
+      .SUBWAY-selected {
+        color: $SUBWAY;
+      }
+
+      .RAIL-selected {
+        color: $RAIL;
+      }
+
+      .TRAM-selected {
+        color: $TRAM;
+      }
+    }
+
+    .name {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    input {
+      border: none;
+      border-bottom: 1px solid gainsboro;
+      outline: none;
+      padding: 10px 0;
+    }
+
+    #button-search {
+      padding: 8px;
+      border-radius: 5px;
+      background: gainsboro;
+      border: none;
+      outline: none;
+
+      &:hover {
+        background: gray;
+        color: white;
+      }
+    }
+  }
+
+  .route {
+    border-left: 0.5px solid gray;
+    padding: 10px;
+    margin: 15px;
+
+    p {
+      margin: 10px 0 0 0;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      border: none;
+      background: gainsboro;
+      color: black;
+    }
+
+    &--selected {
+      background: gray;
+      color: white;
+
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .RouteList {
+    width: 40%;
+    top: 80px;
+    height: 60%;
+    left: 10px;
+
+    .filter {
+      height: 15%;
+
+      .transport-modes {
+        display: flex;
+        justify-content: space-between;
+
+        .fas {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .RouteList {
+    width: 35%;
+    height: 90%;
+
+    .filter {
+      input,
+      #button-search {
+        font-size: 110%;
+      }
+    }
+  }
+}
