@@ -22,6 +22,7 @@ Check it out [here](https://gogocar-assignment.now.sh/)
 ## Libraries, Frameworks, Tools
 
 - React
+- [react-google-maps](https://tomchentw.github.io/react-google-maps/)
 - Apollo Client
 - Zeit
 
