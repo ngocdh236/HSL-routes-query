@@ -7,7 +7,7 @@
   position: fixed;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 45%;
+  height: 50%;
   width: 100%;
   bottom: 0;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.25);
@@ -17,21 +17,20 @@
     flex-direction: column;
     justify-content: space-between;
     position: sticky;
-    height: 25%;
     padding: 20px;
     background: white;
     color: black;
     overflow: hidden;
     top: 0;
+    color: gray;
 
     .transport-modes {
       display: flex;
       justify-content: space-between;
 
       span {
-        color: gray;
         font-size: 80%;
-        margin-top: 5px;
+        margin: 5px 0;
       }
 
       .fas {
@@ -100,6 +99,7 @@
       border-bottom: 1px solid gainsboro;
       outline: none;
       padding: 10px 0;
+      width: 65%;
     }
 
     button {
@@ -159,8 +159,6 @@
     left: 10px;
 
     .filter {
-      height: 15%;
-
       .transport-modes {
         display: flex;
         justify-content: space-between;
@@ -177,17 +175,17 @@
   .RouteList {
     width: 35%;
     height: 90%;
-
-    .filter {
-      input {
-        font-size: 110%;
-      }
-    }
   }
 }
 
 @media only screen and (min-width: 1200px) {
   .RouteList {
     width: 30%;
+
+    .filter {
+      input {
+        font-size: 110%;
+      }
+    }
   }
 }

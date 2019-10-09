@@ -136,6 +136,7 @@ function RouteList(props) {
   return (
     <div className='RouteList'>
       <div className='filter'>
+        <span style={{ marginBottom: '15px' }}>Pick a Transport Mode</span>
         <div className='transport-modes'>
           {transportModes.map(mode => (
             <div
@@ -159,7 +160,7 @@ function RouteList(props) {
         </div>
         <div className='name'>
           <input
-            placeholder='Name'
+            placeholder="Name of route (e.g., 'E' or '1')"
             value={filterName}
             onChange={e => setFilterName(e.target.value)}
           ></input>
@@ -167,9 +168,9 @@ function RouteList(props) {
             Search from HSL
           </button>
         </div>
+        <p style={{ textAlign: 'center' }}>OR</p>
         <button
           className={showGogocarData ? 'gogocar-selected' : null}
-          style={{ marginTop: '15px' }}
           onClick={() => {
             setNoRoute(false);
             setShowGogocarData(true);
