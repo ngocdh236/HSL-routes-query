@@ -139,6 +139,7 @@ function RouteList(props) {
         <div className='transport-modes'>
           {transportModes.map(mode => (
             <div
+              key={mode.name}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
